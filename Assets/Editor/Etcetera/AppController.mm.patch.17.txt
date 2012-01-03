@@ -1,0 +1,157 @@
+332c332,341
+< 	CGSize		size; 
+---
+> 	CGSize		size;
+> 	
+> 	BOOL		extDiscardFramebufferSupported;
+> 	BOOL		msaaSupported;
+> 	GLuint		msaaNumberOfSamples;
+> 	BOOL		msaaEnabled;
+> 	
+> 	GLuint		msaaFrameBuffer;
+> 	GLuint		msaaRenderBuffer;
+> 	GLuint		msaaDepthBuffer;
+416a426,444
+> 	// If we have allocated buffers delete them
+> 	if( surface->msaaRenderBuffer )
+> 	{
+> 		glDeleteRenderbuffersOES( 1, &surface->msaaRenderBuffer );
+> 		surface->msaaRenderBuffer = 0;
+> 	}
+> 	
+> 	if( surface->msaaDepthBuffer )
+> 	{
+> 		glDeleteRenderbuffersOES( 1, &surface->msaaDepthBuffer );
+> 		surface->msaaDepthBuffer = 0;
+> 	}
+> 	
+> 	if( surface->msaaFrameBuffer )
+> 	{
+> 		glDeleteFramebuffersOES( 1, &surface->msaaFrameBuffer );
+> 		surface->msaaFrameBuffer = 0;
+> 	}
+> 	
+430a459,483
+> #ifdef __IPHONE_4_0
+> 	if( surface.msaaEnabled )
+> 	{
+> 		// Bind MSAA buffer and resolve before discarding
+> 		glBindFramebufferOES( GL_READ_FRAMEBUFFER_APPLE, surface.msaaFrameBuffer );
+> 		glBindFramebufferOES( GL_DRAW_FRAMEBUFFER_APPLE, surface.framebuffer );
+> 		glResolveMultisampleFramebufferAPPLE();
+> 		
+> 		
+> 		// Discard color, stencil and depth only.
+> 		GLenum discard[] = {GL_COLOR_ATTACHMENT0_OES, GL_DEPTH_ATTACHMENT_OES, GL_STENCIL_ATTACHMENT_OES};
+> 		glDiscardFramebufferEXT( GL_READ_FRAMEBUFFER_APPLE, 3, discard );
+> 		glBindFramebufferOES( GL_FRAMEBUFFER_OES, surface.framebuffer );
+> 	}
+> 	else
+> 	{
+> 		// Discard depth and stencil only if supported
+> 		if( surface.extDiscardFramebufferSupported )
+> 		{
+> 			GLenum discard[] = {GL_DEPTH_ATTACHMENT_OES, GL_STENCIL_ATTACHMENT_OES};
+> 			glDiscardFramebufferEXT( GL_FRAMEBUFFER_OES, 2, discard );
+> 		}
+> 	}
+> #endif
+> 	
+438a492,496
+> 	
+> 	if( surface.msaaEnabled )
+> 		glBindFramebufferOES( GL_FRAMEBUFFER_OES, surface.msaaFrameBuffer );
+> 	else
+> 		glBindFramebufferOES( GL_FRAMEBUFFER_OES, surface.renderbuffer );
+513a572,662
+> 
+> 
+> // --- Anti Aliasing Support --------------------------------------------------------------------
+> //
+> 
+> extern "C" void _etceteraEnableAntiAliasing( bool enable, int samples )
+> {
+> #ifdef __IPHONE_4_0
+> 	// dont create buffers if we didnt actually change anything here
+> 	if( enable && !_surface.msaaEnabled && samples > 0 )
+> 	{
+> 		// Check Extensions for MSAA
+> 		_surface.msaaSupported = NO;
+> 		_surface.msaaEnabled = NO;
+> 		_surface.msaaNumberOfSamples = 1;
+> 		
+> 		const GLubyte *extensions = glGetString(GL_EXTENSIONS);
+> 		if( extensions != NULL )
+> 		{
+> 			if( strstr( (const char*)extensions, "GL_APPLE_framebuffer_multisample" ) )
+> 			{
+> 				_surface.msaaSupported = YES;
+> 				
+> 				// figure out the max samples supported on this device
+> 				GLint maxSamplesSupported;
+> 				glGetIntegerv( GL_MAX_SAMPLES_APPLE, &maxSamplesSupported );
+> 				
+> 				NSLog( @"device supports a max MSAA sample size of: %i", maxSamplesSupported );
+> 				
+> 				// make sure we set a legit sample size
+> 				_surface.msaaNumberOfSamples = ( samples > maxSamplesSupported ) ? maxSamplesSupported : samples;
+> 			}
+> 		}
+> 		
+> 		// early out if we dont support MSAA
+> 		if( !_surface.msaaSupported )
+> 		{
+> 			NSLog( @"MSAA is not supported on this device" );
+> 			return;
+> 		}
+> 		
+> 		// create buffers
+> 		glGenFramebuffersOES( 1, &_surface.msaaFrameBuffer );
+> 		glGenRenderbuffersOES( 1, &_surface.msaaRenderBuffer );
+> 		glBindFramebufferOES( GL_FRAMEBUFFER_OES, _surface.msaaFrameBuffer );
+> 		glBindRenderbufferOES( GL_RENDERBUFFER_OES, _surface.msaaRenderBuffer );
+> 		
+> 		// depth buffer
+> 		glFramebufferRenderbufferOES( GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, _surface.msaaRenderBuffer );
+> 		glRenderbufferStorageMultisampleAPPLE( GL_RENDERBUFFER_OES, _surface.msaaNumberOfSamples, _surface.format, _surface.size.width, _surface.size.height );
+> 		
+> 		if( _surface.depthFormat )
+> 		{
+> 			glGenRenderbuffersOES( 1, &_surface.msaaDepthBuffer );
+> 			glBindRenderbufferOES( GL_RENDERBUFFER_OES, _surface.msaaDepthBuffer );
+> 			glRenderbufferStorageMultisampleAPPLE( GL_RENDERBUFFER_OES, _surface.msaaNumberOfSamples, _surface.depthFormat, _surface.size.width, _surface.size.height );
+> 			glFramebufferRenderbufferOES( GL_FRAMEBUFFER_OES, GL_DEPTH_ATTACHMENT_OES, GL_RENDERBUFFER_OES, _surface.msaaDepthBuffer );
+> 		}
+> 		
+> 		NSLog( @"enabled MSAA %ix", _surface.msaaNumberOfSamples );
+> 	}
+> 	else if( _surface.msaaEnabled && !enable )
+> 	{
+> 		NSLog( @"tearing down MSAA buffers" );
+> 		
+> 		// If we have allocated buffers delete them
+> 		if( _surface.msaaRenderBuffer )
+> 		{
+> 			glDeleteRenderbuffersOES( 1, &_surface.msaaRenderBuffer );
+> 			_surface.msaaRenderBuffer = 0;
+> 		}
+> 		
+> 		if( _surface.msaaDepthBuffer )
+> 		{
+> 			glDeleteRenderbuffersOES( 1, &_surface.msaaDepthBuffer );
+> 			_surface.msaaDepthBuffer = 0;
+> 		}
+> 		
+> 		if( _surface.msaaFrameBuffer )
+> 		{
+> 			glDeleteFramebuffersOES( 1, &_surface.msaaFrameBuffer );
+> 			_surface.msaaFrameBuffer = 0;
+> 		}
+> 	}
+> 	
+> 	_surface.msaaEnabled = enable;
+> #endif
+> }
+> 
+> 
+> 
