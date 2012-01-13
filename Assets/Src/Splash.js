@@ -1,6 +1,5 @@
 
 
-
 function Update()  {
 
     if(Input.GetMouseButton(0)) {

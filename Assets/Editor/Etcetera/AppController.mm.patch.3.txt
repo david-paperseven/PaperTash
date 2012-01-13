@@ -1,0 +1,280 @@
+295,321c295,321
+< #include <mach/mach.h>
+< #include <mach/mach_host.h>
+< 
+< static void print_mem_stats()
+< {
+< 	mach_port_t host_port;
+< 	mach_msg_type_number_t host_size;
+< 	vm_size_t pagesize;
+< 	
+< 	host_port = mach_host_self();
+< 	host_size = sizeof(vm_statistics_data_t) / sizeof(integer_t);
+< 	host_page_size(host_port, &pagesize);        
+< 	
+< 	vm_statistics_data_t vm_stat;
+< 	
+< 	if (host_statistics(host_port, HOST_VM_INFO, (host_info_t)&vm_stat, &host_size) != KERN_SUCCESS)
+< 		printf_console("Failed to fetch vm statistics\n");
+< 	
+< 	// Stats in bytes
+< 	natural_t mem_used = (vm_stat.active_count +
+< 						  vm_stat.inactive_count +
+< 						  vm_stat.wire_count) * pagesize;
+< 	natural_t mem_free = vm_stat.free_count * pagesize;
+< 	natural_t mem_total = mem_used + mem_free;
+< 	printf_console("MEMORY STATS ::::::: used: %u free: %u total: %u\n", mem_used, mem_free, mem_total);
+< }
+< */
+---
+>  #include <mach/mach.h>
+>  #include <mach/mach_host.h>
+>  
+>  static void print_mem_stats()
+>  {
+>  mach_port_t host_port;
+>  mach_msg_type_number_t host_size;
+>  vm_size_t pagesize;
+>  
+>  host_port = mach_host_self();
+>  host_size = sizeof(vm_statistics_data_t) / sizeof(integer_t);
+>  host_page_size(host_port, &pagesize);        
+>  
+>  vm_statistics_data_t vm_stat;
+>  
+>  if (host_statistics(host_port, HOST_VM_INFO, (host_info_t)&vm_stat, &host_size) != KERN_SUCCESS)
+>  printf_console("Failed to fetch vm statistics\n");
+>  
+>  // Stats in bytes
+>  natural_t mem_used = (vm_stat.active_count +
+>  vm_stat.inactive_count +
+>  vm_stat.wire_count) * pagesize;
+>  natural_t mem_free = vm_stat.free_count * pagesize;
+>  natural_t mem_total = mem_used + mem_free;
+>  printf_console("MEMORY STATS ::::::: used: %u free: %u total: %u\n", mem_used, mem_free, mem_total);
+>  }
+>  */
+342c342,351
+< 	CGSize		size; 
+---
+> 	CGSize		size;
+> 	
+> 	BOOL		extDiscardFramebufferSupported;
+> 	BOOL		msaaSupported;
+> 	GLuint		msaaNumberOfSamples;
+> 	BOOL		msaaEnabled;
+> 	
+> 	GLuint		msaaFrameBuffer;
+> 	GLuint		msaaRenderBuffer;
+> 	GLuint		msaaDepthBuffer;
+366c375
+< 
+---
+> 	
+368c377
+< 
+---
+> 	
+383c392
+< 
+---
+> 	
+401c410
+< 
+---
+> 	
+449a459,477
+> 	// If we have allocated buffers delete them
+> 	if( surface->msaaRenderBuffer )
+> 	{
+> 		glDeleteRenderbuffersOES( 1, &surface->msaaRenderBuffer );
+> 		surface->msaaRenderBuffer = 0;
+> 	}
+> 	
+> 	if( surface->msaaDepthBuffer )
+> 	{
+> 		glDeleteRenderbuffersOES( 1, &surface->msaaDepthBuffer );
+> 		surface->msaaDepthBuffer = 0;
+> 	}
+> 	
+> 	if( surface->msaaFrameBuffer )
+> 	{
+> 		glDeleteFramebuffersOES( 1, &surface->msaaFrameBuffer );
+> 		surface->msaaFrameBuffer = 0;
+> 	}
+> 	
+464,465c492,518
+< 	glGetIntegerv(GL_RENDERBUFFER_BINDING_OES, (GLint *) &oldRenderbuffer);
+< 	glBindRenderbufferOES(GL_RENDERBUFFER_OES, surface.renderbuffer);
+---
+> #ifdef __IPHONE_4_0
+> 	if( surface.msaaEnabled )
+> 	{
+> 		// Bind MSAA buffer and resolve before discarding
+> 		glBindFramebufferOES( GL_READ_FRAMEBUFFER_APPLE, surface.msaaFrameBuffer );
+> 		glBindFramebufferOES( GL_DRAW_FRAMEBUFFER_APPLE, surface.framebuffer );
+> 		glResolveMultisampleFramebufferAPPLE();
+> 		
+> 		
+> 		// Discard color, stencil and depth only.
+> 		GLenum discard[] = {GL_COLOR_ATTACHMENT0_OES, GL_DEPTH_ATTACHMENT_OES, GL_STENCIL_ATTACHMENT_OES};
+> 		glDiscardFramebufferEXT( GL_READ_FRAMEBUFFER_APPLE, 3, discard );
+> 		glBindFramebufferOES( GL_FRAMEBUFFER_OES, surface.framebuffer );
+> 	}
+> 	else
+> 	{
+> 		// Discard depth and stencil only if supported
+> 		if( surface.extDiscardFramebufferSupported )
+> 		{
+> 			GLenum discard[] = {GL_DEPTH_ATTACHMENT_OES, GL_STENCIL_ATTACHMENT_OES};
+> 			glDiscardFramebufferEXT( GL_FRAMEBUFFER_OES, 2, discard );
+> 		}
+> 	}
+> #endif
+> 	
+> 	glGetIntegerv( GL_RENDERBUFFER_BINDING_OES, (GLint *)&oldRenderbuffer );
+> 	glBindRenderbufferOES( GL_RENDERBUFFER_OES, surface.renderbuffer );
+471a525,529
+> 	
+> 	if( surface.msaaEnabled )
+> 		glBindFramebufferOES( GL_FRAMEBUFFER_OES, surface.msaaFrameBuffer );
+> 	else
+> 		glBindFramebufferOES( GL_FRAMEBUFFER_OES, surface.renderbuffer );
+473a532
+> 
+520c579
+< 
+---
+> 	
+523,527c582,586
+< 	#if defined(__IPHONE_3_0) && USE_OPENGLES20_IF_AVAILABLE
+< 			kEAGLRenderingAPIOpenGLES2;
+< 	#else
+< 			kEAGLRenderingAPIOpenGLES1;
+< 	#endif
+---
+> #if defined(__IPHONE_3_0) && USE_OPENGLES20_IF_AVAILABLE
+> 	kEAGLRenderingAPIOpenGLES2;
+> #else
+> 	kEAGLRenderingAPIOpenGLES1;
+> #endif
+531,534c590,593
+< 			if (!UnityIsRenderingAPISupported(openglesApi))
+< 				continue;
+< 			
+< 			_context = [[EAGLContext alloc] initWithAPI:openglesApi];
+---
+> 		if (!UnityIsRenderingAPISupported(openglesApi))
+> 			continue;
+> 		
+> 		_context = [[EAGLContext alloc] initWithAPI:openglesApi];
+560a620,708
+> 
+> // --- Anti Aliasing Support --------------------------------------------------------------------
+> //
+> 
+> extern "C" void _etceteraEnableAntiAliasing( bool enable, int samples )
+> {
+> #ifdef __IPHONE_4_0
+> 	// dont create buffers if we didnt actually change anything here
+> 	if( enable && !_surface.msaaEnabled && samples > 0 )
+> 	{
+> 		// Check Extensions for MSAA
+> 		_surface.msaaSupported = NO;
+> 		_surface.msaaEnabled = NO;
+> 		_surface.msaaNumberOfSamples = 1;
+> 		
+> 		const GLubyte *extensions = glGetString(GL_EXTENSIONS);
+> 		if( extensions != NULL )
+> 		{
+> 			if( strstr( (const char*)extensions, "GL_APPLE_framebuffer_multisample" ) )
+> 			{
+> 				_surface.msaaSupported = YES;
+> 				
+> 				// figure out the max samples supported on this device
+> 				GLint maxSamplesSupported;
+> 				glGetIntegerv( GL_MAX_SAMPLES_APPLE, &maxSamplesSupported );
+> 				
+> 				NSLog( @"device supports a max MSAA sample size of: %i", maxSamplesSupported );
+> 				
+> 				// make sure we set a legit sample size
+> 				_surface.msaaNumberOfSamples = ( samples > maxSamplesSupported ) ? maxSamplesSupported : samples;
+> 			}
+> 		}
+> 		
+> 		// early out if we dont support MSAA
+> 		if( !_surface.msaaSupported )
+> 		{
+> 			NSLog( @"MSAA is not supported on this device" );
+> 			return;
+> 		}
+> 		
+> 		// create buffers
+> 		glGenFramebuffersOES( 1, &_surface.msaaFrameBuffer );
+> 		glGenRenderbuffersOES( 1, &_surface.msaaRenderBuffer );
+> 		glBindFramebufferOES( GL_FRAMEBUFFER_OES, _surface.msaaFrameBuffer );
+> 		glBindRenderbufferOES( GL_RENDERBUFFER_OES, _surface.msaaRenderBuffer );
+> 		
+> 		// depth buffer
+> 		glFramebufferRenderbufferOES( GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, _surface.msaaRenderBuffer );
+> 		glRenderbufferStorageMultisampleAPPLE( GL_RENDERBUFFER_OES, _surface.msaaNumberOfSamples, _surface.format, _surface.size.width, _surface.size.height );
+> 		
+> 		if( _surface.depthFormat )
+> 		{
+> 			glGenRenderbuffersOES( 1, &_surface.msaaDepthBuffer );
+> 			glBindRenderbufferOES( GL_RENDERBUFFER_OES, _surface.msaaDepthBuffer );
+> 			glRenderbufferStorageMultisampleAPPLE( GL_RENDERBUFFER_OES, _surface.msaaNumberOfSamples, _surface.depthFormat, _surface.size.width, _surface.size.height );
+> 			glFramebufferRenderbufferOES( GL_FRAMEBUFFER_OES, GL_DEPTH_ATTACHMENT_OES, GL_RENDERBUFFER_OES, _surface.msaaDepthBuffer );
+> 		}
+> 		
+> 		NSLog( @"enabled MSAA %ix", _surface.msaaNumberOfSamples );
+> 	}
+> 	else if( _surface.msaaEnabled && !enable )
+> 	{
+> 		NSLog( @"tearing down MSAA buffers" );
+> 		
+> 		// If we have allocated buffers delete them
+> 		if( _surface.msaaRenderBuffer )
+> 		{
+> 			glDeleteRenderbuffersOES( 1, &_surface.msaaRenderBuffer );
+> 			_surface.msaaRenderBuffer = 0;
+> 		}
+> 		
+> 		if( _surface.msaaDepthBuffer )
+> 		{
+> 			glDeleteRenderbuffersOES( 1, &_surface.msaaDepthBuffer );
+> 			_surface.msaaDepthBuffer = 0;
+> 		}
+> 		
+> 		if( _surface.msaaFrameBuffer )
+> 		{
+> 			glDeleteFramebuffersOES( 1, &_surface.msaaFrameBuffer );
+> 			_surface.msaaFrameBuffer = 0;
+> 		}
+> 	}
+> 	
+> 	_surface.msaaEnabled = enable;
+> #endif
+> }
+> 
+> 
+602c750
+< 
+---
+> 	
+716c864
+< 
+---
+> 	
+782c930
+< 
+---
+> 	
+823c971
+< 	
+---
+> 
+831c979
+< 
+---
+> 	
