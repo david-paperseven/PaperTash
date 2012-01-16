@@ -44,8 +44,9 @@ function Reset()
 }
 
 var gConstantRecalc = true;
-function Update ()
+function LateUpdate ()
 {
+    print("update the spline");
     var inputManager = GameObject.Find("InputManager");
     var input: tashInput = inputManager.GetComponent(tashInput);
     var cube = GameObject.Find("Cube");

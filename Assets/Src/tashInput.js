@@ -69,6 +69,7 @@ function ReadMouse()
 
 function Update ()
 {
+    print("read input");
     gInput.numberTouches = 0;
     gInput.oldScreenSpacePos = gInput.currentPointerPos;
 

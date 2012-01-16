@@ -50,19 +50,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gui.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="gui.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gui.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="4" selection-start="505" selection-end="505" vertical-scroll-proportion="0.5772532">
+            <state line="27" column="4" selection-start="505" selection-end="505" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Catmull.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Catmull.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Catmull.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="74" column="8" selection-start="1548" selection-end="1548" vertical-scroll-proportion="-4.8846154">
+            <state line="20" column="36" selection-start="349" selection-end="349" vertical-scroll-proportion="0.43923867">
               <folding />
             </state>
           </provider>
@@ -71,7 +71,7 @@
       <file leaf-file-name="tashInput.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tashInput.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="77" column="10" selection-start="1481" selection-end="1481" vertical-scroll-proportion="0.0">
+            <state line="71" column="24" selection-start="1335" selection-end="1335" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -80,7 +80,7 @@
       <file leaf-file-name="tashPoly.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tashPoly.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="26" selection-start="423" selection-end="423" vertical-scroll-proportion="208.92308">
+            <state line="408" column="30" selection-start="10211" selection-end="10211" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -109,10 +109,10 @@
         <option value="$PROJECT_DIR$/Splash.js" />
         <option value="$PROJECT_DIR$/../../Backup/Src/Catmull.js" />
         <option value="$PROJECT_DIR$/tashState.js" />
+        <option value="$PROJECT_DIR$/gui.js" />
+        <option value="$PROJECT_DIR$/tashInput.js" />
         <option value="$PROJECT_DIR$/tashPoly.js" />
         <option value="$PROJECT_DIR$/Catmull.js" />
-        <option value="$PROJECT_DIR$/tashInput.js" />
-        <option value="$PROJECT_DIR$/gui.js" />
       </list>
     </option>
   </component>
@@ -193,22 +193,22 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="12" y="22" width="1440" height="825" extended-state="0" />
+    <frame x="0" y="22" width="1440" height="817" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32469305" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27030912" sideWeight="0.675307" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27462256" sideWeight="0.6744186" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3255814" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -267,9 +267,24 @@
         <state line="327" column="13" selection-start="7902" selection-end="7907" vertical-scroll-proportion="0.5424837" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Splash.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="7" selection-start="31" selection-end="31" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../../Backup/Src/Catmull.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="339" column="18" selection-start="8096" selection-end="8096" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tashState.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="0" selection-start="151" selection-end="151" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gui.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="4" selection-start="505" selection-end="505" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../Platforms/Flash11/swfobject.js">
@@ -277,44 +292,23 @@
         <state line="777" column="0" selection-start="25574" selection-end="25574" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tashState.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="151" selection-end="151" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Splash.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="7" selection-start="31" selection-end="31" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tashPoly.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="26" selection-start="423" selection-end="423" vertical-scroll-proportion="208.92308">
+        <state line="408" column="30" selection-start="10211" selection-end="10211" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tashInput.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="10" selection-start="1481" selection-end="1481" vertical-scroll-proportion="0.0">
+        <state line="71" column="24" selection-start="1335" selection-end="1335" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Catmull.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="8" selection-start="1548" selection-end="1548" vertical-scroll-proportion="-4.8846154">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gui.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="4" selection-start="505" selection-end="505" vertical-scroll-proportion="0.5772532">
+        <state line="20" column="36" selection-start="349" selection-end="349" vertical-scroll-proportion="0.43923867">
           <folding />
         </state>
       </provider>

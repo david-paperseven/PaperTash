@@ -73,6 +73,7 @@ public var tashWidth : float = 100.0;
 var constructMeshDebug = true;
 function ConstructMesh(catPoints : Array)
 {
+    print("construct the mesh");
     if (catPoints.Count <= 2) // have to have at least 3 points
     {
         return;
@@ -405,6 +406,7 @@ function OnRenderObject()
     // set the current material
     gMeshLineMaterial.SetPass( 0 );
 
+    print("render wireframe");
 	GL.PushMatrix();
   	DrawPoints();
     DrawWireframe();
