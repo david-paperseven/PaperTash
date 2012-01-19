@@ -5,6 +5,8 @@ class GUIClass
     var tick : boolean;
     var clear : boolean;
     var brush : boolean;
+    var undo : boolean;
+    var hair : boolean;
 }
 
 var gGUIClass = GUIClass();
@@ -12,12 +14,13 @@ var gGUIClass = GUIClass();
 function ClearFlags() {
     gGUIClass.camera = false;
     gGUIClass.tick = false;
-    gGUIClass.clear = false;
     gGUIClass.brush = false;
 }
 
 function Start () {
     ClearFlags();
+   gGUIClass.clear = false;
+   gGUIClass.undo = false;
 }
 
 function Update()  {
@@ -26,11 +29,9 @@ function Update()  {
 
     ClearFlags();
     if (inputScript.gInput.newActivation==true){
-        print(" pos "+inputScript.gInput.pos);
         var hit : RaycastHit;
         var fwd = Camera.main.transform.forward;
         if (Physics.Raycast (inputScript.gInput.pos, fwd, hit, 10)) {
-            print(hit.collider.gameObject.name);
 
             if (hit.collider.gameObject.name == "Camera"){
                 gGUIClass.camera = true;
@@ -44,6 +45,10 @@ function Update()  {
             if (hit.collider.gameObject.name == "Brush"){
                 gGUIClass.brush = true;
             }
+            if (hit.collider.gameObject.name == "Undo"){
+                gGUIClass.undo = true;
+            }
+
         }
     }
 }

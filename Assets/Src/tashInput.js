@@ -7,7 +7,6 @@ class InputClass
 	var speed : float;
     var pixelsTravelled : float;
 	var dir : Vector3;
-    var oldScreenSpacePos : Vector2;
 
 
     var currentPointerPos : Vector2;
@@ -34,18 +33,34 @@ function ReadIOS()
             gInput.numberTouches++;
         }
     }
+
     if (gInput.numberTouches==0)
     {
         gInput.deactivateCounter++;
-        if (gInput.deactivateCounter>2)
+        // wait at least six frames before deciding that the user has lifted their finger
+        // because iOS sometimes incorrectly reports that there are no touches
+        if (gInput.deactivateCounter>6)
         {
             gInput.active = false;
-            gInput.newActivation = false;
         }
+        gInput.newActivation = false;
     }
     else
     {
         gInput.deactivateCounter=0;
+    }
+
+    if (gInput.numberTouches == 1)
+    {
+        if (gInput.active == false)
+        {
+            gInput.newActivation = true;
+            gInput.active = true;
+        }
+        else
+        {
+            gInput.newActivation = false;
+        }
     }
 }
 
@@ -65,13 +80,24 @@ function ReadMouse()
     {
         gInput.active = false;
     }
+
+   if (gInput.numberTouches == 1)
+    {
+        if (gInput.active == false)
+        {
+            gInput.newActivation = true;
+            gInput.active = true;
+        }
+        else
+        {
+            gInput.newActivation = false;
+        }
+    }
 }
 
 function Update ()
 {
-    print("read input");
     gInput.numberTouches = 0;
-    gInput.oldScreenSpacePos = gInput.currentPointerPos;
 
     var usingMouse = true;
     #if UNITY_IPHONE
@@ -107,18 +133,17 @@ function Update ()
 //			pInput.dir = Vector3.up;
        }
        gInput.oldPointerPos = gInput.currentPointerPos;
-
+/*
        if (gInput.active == false)
        {
            gInput.newActivation = true;
            gInput.active = true;
-           gInput.oldScreenSpacePos = gInput.currentPointerPos;
        }
         else
        {
            gInput.newActivation = false;
        }
-
+*/
     }
 
 }
@@ -128,4 +153,39 @@ function LateUpdate()
 
 function OnGUI ()
 {
+}
+
+public var gInputLineMaterial : Material;
+function OnRenderObject(){
+	var up = Camera.main.transform.up;
+	var right = Camera.main.transform.right;
+
+    // set the current material
+    gInputLineMaterial.SetPass( 0 );
+
+	GL.Begin(GL.LINES);
+    var renderPointScale = 5;
+
+    GL.Vertex( gInput.pos + up * renderPointScale);
+    GL.Vertex( gInput.pos - up * renderPointScale);
+
+    GL.Vertex( gInput.pos + right * renderPointScale);
+    GL.Vertex( gInput.pos - right * renderPointScale);
+
+
+    for (var touch : Touch in Input.touches)
+    {
+        if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)
+        {
+            var p : Vector3 = Camera.main.ScreenToWorldPoint (Vector3 (touch.position.x,touch.position.y,1));
+            renderPointScale = 2;
+            GL.Vertex( p + up * renderPointScale);
+            GL.Vertex( p - up * renderPointScale);
+
+            GL.Vertex( p + right * renderPointScale);
+            GL.Vertex( p - right * renderPointScale);
+        }
+    }
+
+    GL.End();
 }

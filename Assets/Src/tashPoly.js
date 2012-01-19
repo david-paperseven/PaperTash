@@ -2,8 +2,6 @@
 class Vert
 {
     var pos : Vector3;
-    var connections : ArrayList;
-    var neighbours : ArrayList;
     var index : int;
 }
 
@@ -28,44 +26,6 @@ function Clear()
     gMeshes.Clear();
 }
 
-var curveNumber : int = 0;
-var NUM_CURVES : int = 3;
-public var gCurve1 : AnimationCurve;
-public var gCurve2 : AnimationCurve;
-public var gCurve3 : AnimationCurve;
-private var gCurves = new Array();
-
-public var widthScale : float = 0.02f;
-function GetWidth(x : float)
-{
-    var curve : AnimationCurve = gCurves[curveNumber];
-    return curve.Evaluate(x);
-
-}
-
-function Start()
-{
-    gCurves.Add(gCurve1);
-    gCurves.Add(gCurve2);
-    gCurves.Add(gCurve3);
-}
-
-function GetTotalSplineLength(catPoints : Array)
-{
-    var point : Vector3;
-    var pos : Vector3;
-    var length : float = 0.0;
-
-    point = catPoints[0];
-    pos = point;
-    for (var i = 1; i < catPoints.Count; i++)
-    {
-        point = catPoints[i];
-        length += (point-pos).magnitude;
-        pos = point;
-    }
-    return length;
-}
 
 public var slerp : float = 0.1;
 public var tashHeight : float = 0.06;
@@ -73,8 +33,10 @@ public var tashWidth : float = 100.0;
 var constructMeshDebug = true;
 function ConstructMesh(catPoints : Array)
 {
-    print("construct the mesh");
-    if (catPoints.Count <= 2) // have to have at least 3 points
+    var splineObject = GameObject.Find("TashSpline");
+    var ts : tashSpline = splineObject.GetComponent("tashSpline");
+
+    if (catPoints.Count < 2) // have to have at least 3 points
     {
         return;
     }
@@ -94,7 +56,7 @@ function ConstructMesh(catPoints : Array)
 
     var count : int = 0;
 
-    var totalLength : float = GetTotalSplineLength(catPoints);
+    var totalLength : float = ts.GetTotalSplineLength(catPoints);
     // start slim
     point = catPoints[0];
     AddPoint(m,point);
@@ -112,7 +74,7 @@ function ConstructMesh(catPoints : Array)
 
         AddPoint(m,point);
 
-        var width : float = GetWidth(distance/totalLength);
+        var width : float = ts.GetWidth(distance/totalLength);
 
         AddPoint(m,point + up*width*tashWidth + Camera.main.transform.forward*tashHeight);
         AddPoint(m,point - up*width*tashWidth + Camera.main.transform.forward*tashHeight);
@@ -205,13 +167,6 @@ function CalcTriangleNormal(m : cMesh,tri : Triangle)
     return N;
 }
 
-function IncTashNumber()
-{
-    curveNumber++;
-    if (curveNumber>=NUM_CURVES)
-        curveNumber = 0;
-}
-
 function Update ()
 {
 }
@@ -226,12 +181,13 @@ function LateUpdate ()
 {
 
 
-    if (!DrawMesh)
-      return;
 
 	// Rebuild the mesh
 	var mesh : Mesh = GetComponent(MeshFilter).mesh;
 	mesh.Clear();
+
+    if (!DrawMesh)
+      return;
 
     var i:int;
     var numTriangles = 0;
@@ -403,10 +359,11 @@ public var gMeshLineMaterial : Material;
 
 function OnRenderObject()
 {
+    if (!DrawMesh)
+        return;
     // set the current material
     gMeshLineMaterial.SetPass( 0 );
 
-    print("render wireframe");
 	GL.PushMatrix();
   	DrawPoints();
     DrawWireframe();

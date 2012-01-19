@@ -16,8 +16,6 @@ class Splines
 var gSplines=new Array();
 var gSplineVar = new SplineVar();
 
-var gReset : int = 0;
-
 public var gLineMaterial : Material;
 public var gCrossMaterial : Material;
 
@@ -39,48 +37,94 @@ function Reset()
 
     gSplineVar.builtMesh = false;
     var cube = GameObject.Find("Cube");
-    cube.GetComponent(tashPoly).Clear();
-    gReset=1;
+    var tp = cube.GetComponent(tashPoly);
+    tp.Clear();
+    tp.DrawMesh = true;
+
+    var haircube = GameObject.Find("HairCube");
+    var hair : tashHair = haircube.GetComponent("tashHair");
+    hair.Clear();
+
 }
 
 var gConstantRecalc = true;
+public var bottomGUIHeight = 64;
 function LateUpdate ()
 {
-    print("update the spline");
     var inputManager = GameObject.Find("InputManager");
     var input: tashInput = inputManager.GetComponent(tashInput);
     var cube = GameObject.Find("Cube");
     var tp = cube.GetComponent(tashPoly);
     var guiComponent : gui = GetComponent("gui");
     var gGUIClass = guiComponent.gGUIClass;
+    var haircube = GameObject.Find("HairCube");
+    var hair : tashHair = haircube.GetComponent("tashHair");
+    var splineObject = GameObject.Find("TashSpline");
+    var ts : tashSpline = splineObject.GetComponent("tashSpline");
 
     var i:int;
-/*
-    if (input.gInput.buttonImage == true)
-        return;
-*/
-    // can't have catmull relying on tashstate.js
-/*
-    if (gState.TashActive()==false)
-        return;
-*/
+
     gSplineVar.builtMesh = true; // always drawing in mesh mode
 
     var s : Splines = gSplines[gSplineVar.currentSpline];
 
-    if (input.gInput.numberTouches == 1)
+    if (input.gInput.currentPointerPos.y > bottomGUIHeight)
     {
-        UpdateSpline(s,input);
+        if (input.gInput.newActivation==true)
+        {
+            var news : Splines = new Splines();
+            gSplines.Add(news);
+            news.catPoints = new Array();
+            news.finalPoints = new Array();
+            gSplineVar.currentSpline++;
+            s = gSplines[gSplineVar.currentSpline];
+        }
+        if (input.gInput.numberTouches > 0)
+        {
+            UpdateSpline(s,input);
+        }
+    }
+
+    if (gGUIClass.undo == true)
+    {
+        s = gSplines[gSplineVar.currentSpline];
+        if (s.catPoints.Count>0)
+        {
+            s.catPoints.pop();
+
+        }
+        else
+        {
+            gGUIClass.undo = false;
+            if (gSplineVar.currentSpline > 0)
+                gSplineVar.currentSpline--;
+        }
+
     }
 
     if (gGUIClass.clear == true)
     {
-        Reset();
+        var foundOne = false;
+        for (var k = 0; k <= gSplineVar.currentSpline; k++)
+        {
+            var spline : Splines = gSplines[k];
+            if (spline.catPoints.Count > 0)
+            {
+                spline.catPoints.pop();
+                foundOne = true;
+            }
+
+        }
+        if (!foundOne)
+        {
+            Reset();
+            gGUIClass.clear = false;
+        }
     }
 
     if (gGUIClass.brush == true)
     {
-        tp.IncTashNumber();
+        ts.IncTashNumber();
         tp.Clear();
         for (i = 0; i <= gSplineVar.currentSpline; i++)
         {
@@ -107,36 +151,30 @@ function LateUpdate ()
         }
     }
 
+    if (gGUIClass.tick)
+    {
+        for (i = 0; i <= gSplineVar.currentSpline; i++)
+        {
+            s = gSplines[i];
+            if (s.finalPoints.Count > 0)
+            {
+                hair.CalculateHair(s.finalPoints);
+            }
+        }
+        tp.DrawMesh = false;
+    }
 }
 
-function EvaluateCatmullRom(s : Splines, i:int,t:float)
-{
-    var point : Vector3 = s.catPoints[i];
-    var maxIndex = s.catPoints.length-1;
-    
-    var index0 = i - 1;
-    var index1 = i - 0;
-    var index2 = i + 1;
-    var index3 = i + 2;
 
-    index0 = Mathf.Clamp(index0,0,maxIndex);
-    index1 = Mathf.Clamp(index1,0,maxIndex);
-    index2 = Mathf.Clamp(index2,0,maxIndex);
-    index3 = Mathf.Clamp(index3,0,maxIndex);
-
-    var point0 : Vector3 = s.catPoints[index0];
-    var point1 : Vector3 = s.catPoints[index1];
-    var point2 : Vector3 = s.catPoints[index2];
-    var point3 : Vector3 = s.catPoints[index3];
-
-    return PointOnCurve(t,point0,point1,point2,point3);
-}
 
 public var step : float = 10;
 public var MaxDistance : float = 0.2;
-var gFinalSplineStep = 0.1;
+public var gFinalSplineStep = 0.1;
 function CalcFinalPoints(s : Splines)
 {
+    var splineObject = GameObject.Find("TashSpline");
+    var ts : tashSpline = splineObject.GetComponent("tashSpline");
+
     if (s.catPoints.Count==0)
         return;
 
@@ -151,7 +189,8 @@ function CalcFinalPoints(s : Splines)
     var newpoint : Vector3;
 
     // always push the start point
-    newpoint = EvaluateCatmullRom(s,0,0.0);
+    newpoint = ts.EvaluateCatmullRom(s,0,0.0);
+    s.finalPoints.Push(newpoint);
     s.finalPoints.Push(newpoint);
 
     for (var i = 0; i < s.catPoints.Count; i++)
@@ -178,7 +217,7 @@ function CalcFinalPoints(s : Splines)
 
         for (var t = 0.0; t <= 1.0+gFinalSplineStep; t+= gFinalSplineStep)
         {
-            endPos = PointOnCurve(t,point0,point1,point2,point3);
+            endPos = ts.PointOnCurve(t,point0,point1,point2,point3);
             var newdir : Vector3 = endPos-startPos;
             var distance = newdir.magnitude;
             if (distance > 0)
@@ -205,7 +244,7 @@ function CalcFinalPoints(s : Splines)
     }
 
     newpoint = new Vector3();
-    newpoint = EvaluateCatmullRom(s,s.catPoints.Count-1,1.0);
+    newpoint = ts.EvaluateCatmullRom(s,s.catPoints.Count-1,1.0);
     s.finalPoints.Push(newpoint);
 
 }
@@ -213,33 +252,13 @@ function CalcFinalPoints(s : Splines)
 public var distanceToNewPoint = 0.1;
 function UpdateSpline(s : Splines, input : tashInput)
 {
-    if (gReset > 0)
-    {
-        gReset++;
-        if (gReset<5)
-         return;
-        gReset = 0;
-    }
-
     if (s.catPoints.length == 0)
     {
         AddPoint(s,input.gInput.pos);
         AddPoint(s,input.gInput.pos);
+        gSplineVar.totalDistanceTravelled = 0;
     }
-
-
-    if (input.gInput.newActivation==true)
-    {
-        var news : Splines = new Splines();
-        gSplines.Add(news);
-        news.catPoints = new Array();
-        news.finalPoints = new Array();
-        gSplineVar.currentSpline++;
-        return;
-    }
-
-
-
+    
     var distance = (gSplineVar.prevPos - input.gInput.pos).magnitude;
     gSplineVar.totalDistanceTravelled += distance;
 
@@ -291,6 +310,9 @@ function DrawPoints(s : Splines)
 public var splineStep = 0.1;
 function DrawSpline(s : Splines)
 {
+    var splineObject = GameObject.Find("TashSpline");
+    var ts : tashSpline = splineObject.GetComponent("tashSpline");
+
     GL.Begin(GL.LINES);
   //  GL.Color(Color.white);
 
@@ -322,7 +344,7 @@ function DrawSpline(s : Splines)
         var endPos : Vector3;
         for (var t = 0.0; t <= 1.0+splineStep; t+= splineStep)
         {
-            endPos = PointOnCurve(t,point0,point1,point2,point3);
+            endPos = ts.PointOnCurve(t,point0,point1,point2,point3);
             GL.Vertex( startPos );
             GL.Vertex( endPos );
             startPos = endPos;
@@ -335,6 +357,7 @@ function DrawSpline(s : Splines)
 
 function OnRenderObject()
 {
+
 /*
     var i:int;
     var s : Splines;
@@ -362,16 +385,4 @@ function OnRenderObject()
 */
 }
 
-function PointOnCurve(t : float, p0 : Vector3, p1 : Vector3, p2 : Vector3, p3 : Vector3)
-{
-    var t2 : float = t * t;
-    var t3 : float = t2 * t;
 
-    var out : Vector3;
-
-    out.x = 0.5 * ( ( 2.0 * p1.x ) + ( -p0.x + p2.x ) * t + ( 2.0 * p0.x - 5.0 * p1.x + 4 * p2.x - p3.x ) * t2 + ( -p0.x + 3.0 * p1.x - 3.0 * p2.x + p3.x ) * t3 );
-    out.y = 0.5 * ( ( 2.0 * p1.y ) + ( -p0.y + p2.y ) * t + ( 2.0 * p0.y - 5.0 * p1.y + 4 * p2.y - p3.y ) * t2 + ( -p0.y + 3.0 * p1.y - 3.0 * p2.y + p3.y ) * t3 );
-    out.z = p0.z;//0.5 * ( ( 2.0 * p1.z ) + ( -p0.z + p2.z ) * t + ( 2.0 * p0.z - 5.0 * p1.z + 4 * p2.z - p3.z ) * t2 + ( -p0.y + 3.0 * p1.z - 3.0 * p2.z + p3.z ) * t3 );
-
-    return out;
-}

@@ -23,28 +23,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Splash.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Splash.js">
+      <file leaf-file-name="Catmull.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Catmull.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="7" selection-start="31" selection-end="31" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Catmull.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../Backup/Src/Catmull.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="339" column="18" selection-start="8096" selection-end="8096" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tashState.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tashState.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="0" selection-start="151" selection-end="151" vertical-scroll-proportion="0.0">
+            <state line="384" column="2" selection-start="9641" selection-end="9641" vertical-scroll-proportion="0.801085">
               <folding />
             </state>
           </provider>
@@ -53,16 +35,7 @@
       <file leaf-file-name="gui.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gui.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="4" selection-start="505" selection-end="505" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Catmull.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Catmull.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="36" selection-start="349" selection-end="349" vertical-scroll-proportion="0.43923867">
+            <state line="17" column="0" selection-start="309" selection-end="309" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -71,7 +44,7 @@
       <file leaf-file-name="tashInput.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tashInput.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="71" column="24" selection-start="1335" selection-end="1335" vertical-scroll-proportion="0.0">
+            <state line="118" column="119" selection-start="2331" selection-end="2357" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -80,16 +53,52 @@
       <file leaf-file-name="tashPoly.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tashPoly.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="408" column="30" selection-start="10211" selection-end="10211" vertical-scroll-proportion="0.0">
+            <state line="78" column="45" selection-start="1749" selection-end="1767" vertical-scroll-proportion="151.07692">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="swfobject.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../Platforms/Flash11/swfobject.js">
+      <file leaf-file-name="tashSpline.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tashSpline.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="777" column="0" selection-start="25574" selection-end="25574" vertical-scroll-proportion="0.0">
+            <state line="60" column="3" selection-start="1442" selection-end="1442" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tashHair.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tashHair.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="189" column="4" selection-start="6794" selection-end="6794" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Hair.shader" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../Art/Materials/Shaders/Hair.shader">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="30" selection-start="192" selection-end="192" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Line.shader" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../Materials/Line.shader">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="43" selection-start="188" selection-end="213" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tashHair.js.meta" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tashHair.js.meta">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -109,9 +118,14 @@
         <option value="$PROJECT_DIR$/Splash.js" />
         <option value="$PROJECT_DIR$/../../Backup/Src/Catmull.js" />
         <option value="$PROJECT_DIR$/tashState.js" />
-        <option value="$PROJECT_DIR$/gui.js" />
         <option value="$PROJECT_DIR$/tashInput.js" />
+        <option value="$PROJECT_DIR$/../../../Fur/Assets/Fur/Support/Fur.shader" />
+        <option value="$PROJECT_DIR$/../../../Fur/Assets/Fur/Support/FurHelpers.cginc" />
+        <option value="$PROJECT_DIR$/gui.js" />
         <option value="$PROJECT_DIR$/tashPoly.js" />
+        <option value="$PROJECT_DIR$/../Art/Materials/Shaders/Hair.shader" />
+        <option value="$PROJECT_DIR$/tashSpline.js" />
+        <option value="$PROJECT_DIR$/tashHair.js" />
         <option value="$PROJECT_DIR$/Catmull.js" />
       </list>
     </option>
@@ -193,22 +207,22 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="509" y="40" width="1440" height="817" extended-state="0" />
+    <frame x="-21" y="22" width="1440" height="817" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19724138" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27462256" sideWeight="0.6744186" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.10208483" sideWeight="0.80275863" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3255814" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -257,24 +271,42 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../Standard Assets (Mobile)/Shaders/Miscellaneous Shaders/Mobile Background.shader">
+    <entry file="file://$PROJECT_DIR$/../../Platforms/Flash11/swfobject.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+        <state line="777" column="0" selection-start="25574" selection-end="25574" vertical-scroll-proportion="0.8682284" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../Backup/Src/tashState.js">
+    <entry file="file://$PROJECT_DIR$/../../../Fur/Assets/Fur/Support/SynchronizeLights.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="327" column="13" selection-start="7902" selection-end="7907" vertical-scroll-proportion="0.5424837" />
+        <state line="25" column="0" selection-start="749" selection-end="749" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Splash.js">
+    <entry file="file://$PROJECT_DIR$/../../../Fur/Assets/Fur/Support/Fur.shader">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="7" selection-start="31" selection-end="31" vertical-scroll-proportion="0.0" />
+        <state line="12" column="64" selection-start="525" selection-end="525" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../Backup/Src/Catmull.js">
+    <entry file="file://$PROJECT_DIR$/../../../Fur/Assets/Fur/Support/FurHelpers.cginc">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="339" column="18" selection-start="8096" selection-end="8096" vertical-scroll-proportion="0.0" />
+        <state line="24" column="34" selection-start="701" selection-end="701" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tashHair.js.meta">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gui.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="0" selection-start="309" selection-end="309" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tashState.js">
@@ -282,33 +314,58 @@
         <state line="22" column="0" selection-start="151" selection-end="151" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gui.js">
+    <entry file="file://$PROJECT_DIR$/../Art/Materials/Shaders/Line.shader">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="4" selection-start="505" selection-end="505" vertical-scroll-proportion="0.0" />
+        <state line="10" column="9" selection-start="0" selection-end="723" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../Platforms/Flash11/swfobject.js">
+    <entry file="file://$PROJECT_DIR$/../Materials/Line.shader">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="777" column="0" selection-start="25574" selection-end="25574" vertical-scroll-proportion="0.0" />
+        <state line="11" column="43" selection-start="188" selection-end="213" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tashPoly.js">
+    <entry file="file://$PROJECT_DIR$/../Art/Materials/Shaders/Hair.shader">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="408" column="30" selection-start="10211" selection-end="10211" vertical-scroll-proportion="0.0">
+        <state line="12" column="30" selection-start="192" selection-end="192" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tashSpline.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="60" column="3" selection-start="1442" selection-end="1442" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tashInput.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="24" selection-start="1335" selection-end="1335" vertical-scroll-proportion="0.0">
+        <state line="118" column="119" selection-start="2331" selection-end="2357" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tashHair.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="189" column="4" selection-start="6794" selection-end="6794" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tashPoly.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="78" column="45" selection-start="1749" selection-end="1767" vertical-scroll-proportion="151.07692">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Catmull.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="36" selection-start="349" selection-end="349" vertical-scroll-proportion="0.43923867">
+        <state line="384" column="2" selection-start="9641" selection-end="9641" vertical-scroll-proportion="0.801085">
           <folding />
         </state>
       </provider>
