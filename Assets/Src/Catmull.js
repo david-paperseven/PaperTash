@@ -19,9 +19,36 @@ var gSplineVar = new SplineVar();
 public var gLineMaterial : Material;
 public var gCrossMaterial : Material;
 
+var gHUDyPos : float = 0;
+function StoreHUDCoords() {
+    var hudlayout = gameObject.Find("HUD");
+    if (hudlayout) {
+        gHUDyPos = hudlayout.transform.position.y;
+    }
+}
+
+function RestoreHUDCoords() {
+    var hudlayout = gameObject.Find("HUD");
+    if (hudlayout) {
+        hudlayout.transform.position.y = gHUDyPos;
+    }
+}
+
+function RemoveHUD() {
+    var hudlayout = gameObject.Find("HUD");
+    if (hudlayout) {
+        hudlayout.transform.position.y = 1000;
+    }
+}
+
+var gPhotoTexture : Texture;
 function Start()
 {
    Reset();
+   StoreHUDCoords();
+
+   var photoObject = GameObject.Find("PhotoMesh");
+   gPhotoTexture = photoObject.renderer.material.mainTexture;
 }
 
 function Reset()
@@ -124,6 +151,8 @@ function LateUpdate ()
 
     if (gGUIClass.brush == true)
     {
+        hair.IncPreset();
+        /*
         ts.IncTashNumber();
         tp.Clear();
         for (i = 0; i <= gSplineVar.currentSpline; i++)
@@ -133,6 +162,7 @@ function LateUpdate ()
             tp.ConstructMesh(s.finalPoints);
             gSplineVar.builtMesh = true;
         }
+        */
 
     }
 
@@ -161,7 +191,21 @@ function LateUpdate ()
                 hair.CalculateHair(s.finalPoints);
             }
         }
+        RemoveHUD();
         tp.DrawMesh = false;
+    }
+
+    if (gGUIClass.frameAfterTick)
+    {
+        RestoreHUDCoords();
+        Reset();
+        gGUIClass.frameAfterTick = false;
+    }
+
+    if (gGUIClass.camera)
+    {
+        var photoObject = GameObject.Find("PhotoMesh");
+        photoObject.renderer.material.mainTexture = gPhotoTexture;
     }
 }
 

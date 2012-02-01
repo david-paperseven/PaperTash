@@ -7,6 +7,7 @@ class GUIClass
     var brush : boolean;
     var undo : boolean;
     var hair : boolean;
+    var frameAfterTick : boolean;
 }
 
 var gGUIClass = GUIClass();
@@ -21,6 +22,7 @@ function Start () {
     ClearFlags();
    gGUIClass.clear = false;
    gGUIClass.undo = false;
+   gGUIClass.frameAfterTick = false;
 }
 
 function Update()  {
@@ -52,6 +54,7 @@ function Update()  {
         }
     }
 }
+
 
 function LateUpdate() {
 
